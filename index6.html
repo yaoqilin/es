@@ -19,21 +19,21 @@
      */
 
     var a = [];
-    for (var index = 0; index < 10; index++) {
-        a[index] = function () {
-            console.log(index); // index会向上查找a作用域的index值
+    for (var index = 0; index6 < 10; index6++) {
+        a[index6] = function () {
+            console.log(index6); // index会向上查找a作用域的index值
         }
     }
-    console.log(index); // 10
+    console.log(index6); // 10
     a[5](); //10
 
     // let
-    for (let index = 0; index < 10; index++) {
-        a[index] = function () {
-            console.log(index);
+    for (let index = 0; index6 < 10; index6++) {
+        a[index6] = function () {
+            console.log(index6);
         }
     }
-    console.log(index); // 10
+    console.log(index6); // 10
     a[5](); // 5
     /**
      * 字符串新增方法
@@ -175,6 +175,7 @@
             }, 6000);
         })
     }
+
     function timeout() {
         return new Promise((res, rej) => {
             setTimeout(() => {
@@ -182,6 +183,7 @@
             }, 5000);
         })
     }
+
     Promise.race([requestImg(), timeout()]).then((result) => {
         console.log(result);
     }).catch((err) => {
@@ -189,7 +191,33 @@
     });
     // result: 请求超时
     //上面在请求超时完成后，其实requestImg()函数并没有停止执行，而是不会再进入resolve的回调函数中了。
+    console.log('_____________________________________________________________________');
+    /**
+     * Set作为ES6新的数组解构（类数组）
+     * 用于去重、并、差、交集
+     */
+    // Set实例的常用方法和属性add,delete,clear,has,size
+    const s = new Set(['A', 'B', 'C']);
+    console.log(s); // Set {'A', 'B', 'C'}
+    console.log(s.has('C')); // true, bool值
+    console.log(s.size); // 3
+    console.log(s.delete('B')); // true,bool值
+    console.log(s.size); // 2
+    console.log(s.clear()); //Set {}
 
+    //Set实例配合常用遍历方法，实现并、交、差集
+    const a1 = [1,2,3];
+    const b1 = [2,3,4];
+    //并集
+    const s1 = Array.from(new Set([...a1, ...b1])); // [1, 2, 3, 4]
+    console.log(s1);
+    // 交集、差集
+    const bSet = new Set(b1);
+    const interestSet = a1.filter(v => bSet.has(v));    //[2, 3]
+    console.log(interestSet);
+    const interestSet1 = a1.filter(v => !bSet.has(v));  // [1]
+    console.log(interestSet1);
+    console.log('_____________________________________________________________________');
 
 
 

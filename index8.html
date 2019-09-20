@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>es8</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /**
+     * async、await异步解决方案
+     * JS是单线程、优化回调地狱的写法
+     */
+    async function asyncFunc() {
+        const result = await otherAsyncFunc();
+        console.log('33333333333')
+    }
+
+    function asyncFunc1() {
+        // return otherAsyncFunc().then(result => {
+        //     console.log('22222222222');
+        // });                                   这样使用 promise 会报错，应该将定时器放在 Promise 里面
+        return new Promise((res, rej) => {
+            otherAsyncFunc();
+            console.log('gggggggggggggg')
+        })
+    }
+
+    function otherAsyncFunc() {
+        setTimeout(() => {
+            console.log('111111111111');
+        }, 1000);
+    }
+
+    // asyncFunc();
+    asyncFunc1();
+
+    async function asyncFunc2() {
+        const result1 = await otherAsyncFunc1();
+        console.log(result1);
+        const result2 = await otherAsyncFunc2();
+        console.log(result2);
+    }
+
+    function asyncFunc3() {
+        // return otherAsyncFunc1().then(result1 => {
+        //     console.log(result1);
+        //     return otherAsyncFunc2();
+        // }).then(result2 => {
+        //     console.log(result2);
+        // });
+        return new Promise((res, rej) => {
+            console.log(res + '----res');
+            return otherAsyncFunc2();
+        }).then(result2 => {
+            console.log(result2 + '----result2');
+        });
+    }
+
+    function otherAsyncFunc1() {
+        setTimeout(() => {
+            console.log('2000000000000');
+        }, 2000);
+        return '20000------------'
+    }
+
+    function otherAsyncFunc2() {
+        setTimeout(() => {
+            console.log('3000000000000');
+        }, 3000);
+        return '30000------------'
+    }
+
+    asyncFunc2();
+    asyncFunc3();
+
+    //并行处理多个异步函数
+    async function asyncFunc4() {
+        const [result1, result2] = await Promise.all([
+            otherAsyncFunc3(),
+            otherAsyncFunc4(),
+        ]);
+        console.log(result1, result2);
+    }
+
+    function asyncFunc5() {
+        return Promise.all([
+            otherAsyncFunc3(),
+            otherAsyncFunc4(),
+        ]).then(([result1, result2]) => {
+            console.log(result1, result2);
+        });
+    }
+
+    function otherAsyncFunc3() {
+        setTimeout(() => {
+            console.log('8000000000000');
+        }, 3000);
+        return '80000------------'
+    }
+
+    function otherAsyncFunc4() {
+        setTimeout(() => {
+            console.log('9000000000000');
+        }, 4000);
+        return '90000------------'
+    }
+
+    asyncFunc4();
+    asyncFunc5();
+
+    //处理错误
+    async function asyncFunc6() {
+        try {
+            await otherAsyncFunc4();
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    function asyncFunc7() {
+        // return otherAsyncFunc4().catch(err => {
+        //     console.error(err);
+        // });
+        return new Promise((res, rej) => {
+            otherAsyncFunc4();
+        }).catch(err => {
+            console.error(err)
+        })
+    }
+    asyncFunc6();
+    asyncFunc7();
+</script>

@@ -119,6 +119,7 @@
             console.log(err);
         }
     }
+
     function asyncFunc7() {
         // return otherAsyncFunc4().catch(err => {
         //     console.error(err);
@@ -129,6 +130,16 @@
             console.error(err)
         })
     }
+
     asyncFunc6();
     asyncFunc7();
+
+    /**
+     * Object.values and Object.entries
+     */
+        //Object.values() 方法返回一个给定对象自己的所有可枚举属性值的数组，
+        // 值的顺序与使用for...in循环的顺序相同 ( 区别在于for-in循环枚举原型链中的属性 )。
+
+    const obj = {x: 'xyz', y: 1};
+    Object.values(obj); //
 </script>

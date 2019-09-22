@@ -56,10 +56,60 @@
             })
             .finally(() => {
                 // finish here!
-                console.log(55555555555)
+                console.log(55555555555);
             });
     }
+
     doSomething();
+
+    /**
+     * Rest/Spread 属性
+     * Rest参数语法允许我们将一个不定数量的参数表示为一个数组。
+     * 三个点（...）仅用于数组
+     */
+    restParam(1, 2, 3, 4, 5);
+
+    function restParam(p1, p2, ...p3) {
+        console.log(p1); // p1 = 1
+        console.log(p2); // p2 = 2
+        console.log(p3); // p3 = [3, 4, 5]
+    }
+    //展开操作符以相反的方式工作，将数组转换成可传递给函数的单独参数。
+    // 例如Math.max()返回给定数字中的最大值：
+    const values = [99, 100, -1, 48, 16];
+    console.log( Math.max(...values) ); // 100
+
+    const myObject = {
+        a: 1,
+        b: 2,
+        c: 3
+    };
+
+    const { a, ...x } = myObject;
+    console.log({ a, ...x});
+    // a = 1
+    // x = { b: 2, c: 3 }
+    restParam1({
+        a: 1,
+        b: 2,
+        c: 3
+    });
+
+    function restParam1({ a, ...x }) {
+        console.log({ a, ...x});
+        // a = 1
+        // x = { b: 2, c: 3 }
+    }
+    //跟数组一样，Rest参数只能在声明的结尾处使用。
+    // 此外，它只适用于每个对象的顶层，如果对象中嵌套对象则无法适用。
+
+    const obj1 = { a: 1, b: 2, c: 3 };
+    const obj2 = { ...obj1, z: 26 };
+    // obj2 is { a: 1, b: 2, c: 3, z: 26 }
+    //可以使用扩展运算符拷贝一个对象，像是这样obj2 = {...obj1}，
+    // 但是 这只是一个对象的浅拷贝。
+    // 另外，如果一个对象A的属性是对象B，那么在克隆后的对象cloneB中，该属性指向对象B。
+
 
 
 </script>

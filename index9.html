@@ -8,3 +8,58 @@
 
 </body>
 </html>
+<script>
+    /**
+     * 异步迭代
+     */
+    async function process(array) {
+        for (let i of array) {
+            await console.log(i);
+        }
+    }
+
+    process(['a', 'b', 'c']);
+
+    async function process1(array) {
+        array.forEach(async i => {
+            await console.log(i);
+        });
+    }
+
+    process1(['d', 'e', 'f']);
+
+    //await可以和for...of循环一起使用，以串行的方式运行异步操作。
+    async function process2(array) {
+        for await (let i of array) {
+            console.log(i)
+        }
+    }
+
+    process2(['g', 'h', 'j']);
+
+    /**
+     * Promise.finally()
+     * .finally()允许你指定最终的逻辑：
+     */
+    function doSomething() {
+        new Promise((res, rej) => {
+            console.log(11111111);
+        })
+            .then((res, rej) => {
+                console.log(222222222);
+            })
+            .then((res, rej) => {
+                console.log(333333333);
+            })
+            .catch(err => {
+                console.log(4444444);
+            })
+            .finally(() => {
+                // finish here!
+                console.log(55555555555)
+            });
+    }
+    doSomething();
+
+
+</script>
